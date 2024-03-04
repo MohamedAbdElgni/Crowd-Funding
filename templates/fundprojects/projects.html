@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Projects</title>
+</head>
+<body>
+    <h1>All Projects</h1>
+<form action="{% url 'fundprojects:project_create' %}" method="get">
+<button class="btn btn-danger" type="submit">Create Project</button>
+</form>
+<table class="table">
+    <thead>
+    <tr>
+        <td>ID</td>
+        <td>Title</td>
+        <td>Details</td>
+        <td>Category</td>
+        <td>Actions</td>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    {% for project in projects %}
+         <tr>
+            <td>{{ project.id }}</td>
+            <td>{{ project.title }}</td>
+            <td>{{ project.details }}</td>
+            <td>{{ project.category.name }}</td>
+            <td style="display: flex;">
+                <form action="{% url 'fundprojects:project_detail' pk=project.id  %}">
+                    <button type="submit" class="btn btn-warning">Show</button>
+                </form>
+                &nbsp;
+                <form >
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-warning">Update</button>
+                </form>
+                &nbsp;
+                <form >
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-warning">Delete</button>
+                </form>
+                
+            </td>
+        </tr>
+    {%endfor%}
+    </tbody>
+</table>
+</body>
+</html>

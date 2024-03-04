@@ -1,0 +1,124 @@
+side bar
+
+cats=[
+      {
+            "id": '1',
+            'name' : 'charity',
+            'pic':'pic1.jpg',
+            'desc':'this are the projects related to charity'
+            }
+]
+
+# ask about the images and the tags
+
+
+
+projects=[
+      {
+            "id": '1',
+            'cat_id': '1',
+            "user_id": '1',
+            'title' : 'charity',
+            'details' : 'this is a charity project',
+            'pic':'pic1.jpg',
+            "target": 1000,
+            'tags': ['charity','help','donate'],
+            'start_date': '2020-01-01',
+            'end_date': '2020-01-01',
+            'status': 'active'
+            },
+      
+]
+imges=[
+      {
+            "id": '1',
+            'project_id': '1',
+            'img' : 'pic1.jpg',
+            'date': '2020-01-01'
+      }
+]
+
+
+
+comments=[
+      {
+            "id": '1',
+            'project_id': '1',
+            'comment' : 'this is a charity project',
+            'user_id': '1',
+            'date': '2020-01-01'
+      }
+]
+
+project_reports=[
+      {
+            "id": '1',
+            'project_id': '1',
+            'report' : 'this is a charity project',
+            'user_id': '1',
+            'date': '2020-01-01'
+      }
+]
+
+
+comments_reports=[
+      {
+            "id": '1',
+            'comment_id': '1',
+            'report' : 'this is a charity project',
+            'user_id': '1',
+            'date': '2020-01-01'
+      }
+]
+
+donations=[
+      {
+            "id": '1',
+            'project_id': '1',
+            'amount' : 100,
+            'user_id': '1',
+            'date': '2020-01-01'
+      }
+]
+
+ratings=[
+      {
+            "id": '1',
+            'project_id': '1',
+            'rating' : 5,
+            'user_id': '1',
+            'date': '2020-01-01'
+      }
+]
+
+
+
+
+===========================================
+==================views====================
+===========================================
+## category will be added from admin panel
+=================youssef==================
+1- create project end point 
+2- cancel project end point 
+3- edit project end point
+4- project details end point <functionbased>
+5- category end point
+6- get all projects end point
+7- get all projects by category end point
+=================mohamed==================
+1- donations end point
+2- comments end point
+3- project reports end point
+4- comments reports end point
+5- ratings end point
+
+===========================================
+==================Templates================
+===========================================
+
+1- home page
+2- project details page
+3- create project page (form)
+4- edit project page(form)
+5-
