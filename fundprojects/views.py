@@ -45,6 +45,7 @@ class ProjectCreateView(CreateView):
     form_class = ProjectForm
     template_name = 'fundprojects/create.html' 
     success_url = reverse_lazy('fundprojects:projects')  
+    
 
 # List All Projects -------------------------------------------->
 
