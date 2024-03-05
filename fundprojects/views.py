@@ -57,6 +57,7 @@ class ProjectListView(ListView):
 # Project Details ------------------------------------------------>
 
 def project_details(request, project_id):
+    # add 5 related projects based on tage
     project = Project.objects.get(id=project_id)
     comments = Comments.get_comments_by_project(project_id)
     return render(request, 'fundprojects/show.html', {'project': project, 'comments': comments})
@@ -94,7 +95,7 @@ def report_comment(request, comment_id):
     if request.method == 'POST':
         report = request.POST.get('report')
         if report:
-            CommentsReports.objects.create(report=report, comment_id=comment_id, user_id=request.user.id)
+            CommentsReports.objects.create(report=report, comment_id=comment_id, user_id=current_user['id'])
             return redirect('fundprojects:project_details', project_id=comment.project.id)
         else:
             return redirect('fundprojects:project_details', project_id=comment.project.id)
