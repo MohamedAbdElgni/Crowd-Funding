@@ -9,5 +9,6 @@ urlpatterns = [
     path('comment/<int:project_id>/', add_comment , name='add_comment'),
     path('report/<int:project_id>/', report_project , name='report_project'),
     path('reportcomment/<int:comment_id>/', report_comment , name='report_comment'),
-    
+    path('<int:pk>/update/', ProjectUpdateView.as_view(), name='project_update'),
+    path('categories/', CategoryListView.as_view(), name='categories')
 ]

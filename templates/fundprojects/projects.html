@@ -30,7 +30,7 @@
                     <button type="submit" class="btn btn-warning">Show</button>
                 </form>
                 &nbsp;
-                <form >
+                <form action="{% url 'fundprojects:project_update' pk=project.id %}">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-warning">Update</button>
                 </form>

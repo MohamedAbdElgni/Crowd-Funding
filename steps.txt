@@ -97,14 +97,14 @@ ratings=[
 ===========================================
 ==================views====================
 ===========================================
-## category will be added from admin panel
+## category will be added from admin panel (Done)
 =================youssef==================
-1- create project end point 
+1- create project end point (Done)
 2- cancel project end point 
-3- edit project end point
-4- project details end point <functionbased>
-5- category end point
-6- get all projects end point
+3- edit project end point (Done)
+4- project details end point (Done)
+5- category end point (Done)
+6- get all projects end point (Done)
 7- get all projects by category end point
 =================mohamed==================
 1- donations end point (to be handeled with the team)

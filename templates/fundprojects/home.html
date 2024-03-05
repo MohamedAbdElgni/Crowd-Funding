@@ -8,6 +8,13 @@
 <h1>Create Project</h1>
 
 <a class="btn btn-primary" href="{% url 'fundprojects:projects' %}">Projects</a>
+<a class="btn btn-warning" href="{% url 'fundprojects:categories'%}">Categories</a>
 </div>
-
+<div>
+    <ul>
+        {% for category in categories %}
+            <li>{{ category.name }}</li>
+        {% endfor %}
+    </ul>
+</div>
 {%endblock%}

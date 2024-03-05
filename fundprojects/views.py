@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse_lazy
 from .models import *
 from .forms import ProjectForm
@@ -107,3 +107,29 @@ def delete_comment(request, project_id, comment_id):
 
 def donate (request, project_id):
     pass
+
+# Update Project ------------------------------------------------------------->
+
+class ProjectUpdateView(UpdateView):
+    model = Project
+    form_class = ProjectForm
+    template_name = 'fundprojects/update.html'
+    success_url = reverse_lazy('fundprojects:projects')
+
+# List All Categories --------------------------------------------------------->
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'fundprojects/categories.html'
+    context_object_name = 'categories'
+
+# Categorys' Products ----------------------------------------------------------->
+
+class CategoryProjectsView(ListView):
+    model = Project
+    template_name = 'fundprojects/category_projects.html'
+    context_object_name = 'projects'
+
+    def get_queryset(self):
+        category_id = self.kwargs['category_id'] 
+        return Project.objects.filter(category_id=category_id)

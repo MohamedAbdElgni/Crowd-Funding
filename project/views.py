@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from fundprojects.models import *
 
 def home(request):
-    return render(request, 'fundprojects/home.html')
+    categories = Category.objects.all()
+    return render(request, 'fundprojects/home.html', {'categories':categories})
