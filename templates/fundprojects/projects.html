@@ -26,7 +26,7 @@
             <td>{{ project.details }}</td>
             <td>{{ project.category.name }}</td>
             <td style="display: flex;">
-                <form action="{% url 'fundprojects:project_detail' pk=project.id  %}">
+                <form action="{% url 'fundprojects:project_details' project_id=project.id  %}">
                     <button type="submit" class="btn btn-warning">Show</button>
                 </form>
                 &nbsp;

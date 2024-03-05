@@ -8,6 +8,7 @@
 <body>
     <div class="container mt-5 mb-5">
         <h1>Project Details</h1>
+        <button class="btn btn-primary"><a href="{% url 'fundprojects:report_project' project_id=project.id %}">Report</a></button>
         <div class="row">
             <div class="col-6">
             <div class="card p-3 w-75">
@@ -16,11 +17,34 @@
         <p><span class="fw-bold fs-5">Details: </span> {{ project.details }}</p>
         <p><span class="fw-bold fs-5">Target: EGP </span> {{ project.total_target }}</p>
         <p><span class="fw-bold fs-5">Status: </span> {{ project.status }}</p>
-        <button onclick="history.back()" class="btn btn-danger">Back</button>
+        {% if comments %}
+        <h3>Comments</h3>
+        <ul>
+            {% for comment in comments %}
+            <li>{{ comment.comment }} 
+                <a href="{% url 'fundprojects:report_comment' comment_id=comment.id %}"><em>report</em></a>
+                <a href="#"><em>delete</em></a>
+            </li>
+            <small>By:User name</small>
+            <small>date: {{ comment.created_at }}</small>
+            <hr>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No comments yet</p>
+        {% endif %}
+        <form action="{% url 'fundprojects:add_comment' project_id=project.id %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="comment">Add Comment</label>
+                <input type="text" class="form-control" id="comment" name="comment" placeholder="Enter comment" required>
+            <button type="submit" class="btn btn-primary">Add Comment</button>
+        </form>
     </div>
-    </div>
-    </div>
+            </div>  
+        </div>
     </div>
 </body>
 </html>
+
 

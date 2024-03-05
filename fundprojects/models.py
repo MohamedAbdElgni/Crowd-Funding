@@ -54,3 +54,48 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Comments(models.Model):
+    """
+        in future will replace user_id with user model
+        so we can show user name and profile picture in comments
+        at the front end
+    """
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project_comments')
+    user_id = models.IntegerField()
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.comment
+    
+    @classmethod
+    def get_comments_by_project(cls, project_id):
+        """returns all comments for a project
+
+        Args:
+            project_id 
+        Returns:
+            list of comments related to the project as a queryset
+        """
+        return cls.objects.filter(project=project_id)
+    
+    
+class ProjectsReports(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project_reports')
+    user_id = models.IntegerField()
+    report = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.report
+    
+class CommentsReports(models.Model):
+    comment = models.ForeignKey(Comments, on_delete=models.CASCADE, related_name='comment_reports')
+    user_id = models.IntegerField()
+    report = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.report

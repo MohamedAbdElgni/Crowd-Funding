@@ -107,11 +107,11 @@ ratings=[
 6- get all projects end point
 7- get all projects by category end point
 =================mohamed==================
-1- donations end point
-2- comments end point
-3- project reports end point
-4- comments reports end point
-5- ratings end point
+1- donations end point (to be handeled with the team)
+2- comments end point (Done)
+3- project reports end point (Done)
+4- comments reports end point (Done)
+5- ratings end point (to be handeled with the team)
 
 ===========================================
 ==================Templates================
