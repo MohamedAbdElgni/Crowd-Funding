@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy
 from .models import *
-from .forms import ProjectForm
+from .forms import *
 from django.contrib import messages
 
 
@@ -42,11 +42,24 @@ current_user = users[0]
 
 # Create Project ----------------------------------------------->
 
-class ProjectCreateView(CreateView):
-    model = Project
-    form_class = ProjectForm
-    template_name = 'fundprojects/create.html' 
-    success_url = reverse_lazy('fundprojects:projects')
+def create_project(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        files = request.FILES.getlist("image")
+        if form.is_valid():
+            f = form.save(commit=False)
+            f.save()
+            for i in files:
+                ProjectPicture.objects.create(project=f, image=i)
+            messages.success(request, "New Project Added")
+            return redirect('fundprojects:projects')
+        else:
+            print(form.errors)
+    else:
+        form = ProjectForm()
+        imageform = ImageForm()
+
+    return render(request, 'fundprojects/create.html', {'form': form , 'imageform':imageform})
     
 
 # List All Projects -------------------------------------------->
@@ -55,9 +68,6 @@ class ProjectListView(ListView):
     model = Project
     template_name = 'fundprojects/projects.html'
     context_object_name = 'projects'
-
-# Project Details ------------------------------------------------>
-
 
 # Update Project ------------------------------------------------------------->
 
@@ -75,16 +85,18 @@ class CategoryListView(ListView):
     context_object_name = 'categories'
 
 # Categorys' Products ----------------------------------------------------------->
+    
+def category_projects_view(request, category_id):
+    projects = Project.objects.filter(category_id=category_id)
+    category = get_object_or_404(Category, id=category_id)
+    context = {
+        'projects': projects,
+        'category': category,
+    }
+    return render(request, 'fundprojects/category_projects.html', context)
 
-class CategoryProjectsView(ListView):
-    model = Project
-    template_name = 'fundprojects/category_projects.html'
-    context_object_name = 'projects'
-
-    def get_queryset(self):
-        category_id = self.kwargs['category_id'] 
-        return Project.objects.filter(category_id=category_id)
-
+# Project Details ------------------------------------------------>
+    
 def project_details(request, project_id):
     # add 5 related projects based on tage
     project = Project.objects.get(id=project_id)

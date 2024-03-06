@@ -30,8 +30,6 @@ class Project(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES)
     # user_id = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     user_id=models.IntegerField()
-    picture = models.ForeignKey('ProjectPicture', on_delete=models.CASCADE, null=True, blank=True, related_name='project_pictures')
-    tag = models.ForeignKey('Tag', on_delete=models.CASCADE, null=True, blank=True, related_name='project_tags')
 
     @classmethod
     def get_all_projects(cls):
@@ -45,7 +43,7 @@ class Project(models.Model):
         return self.title
 
 class ProjectPicture(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project_pictures')
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='project_images/')
 
 class Tag(models.Model):

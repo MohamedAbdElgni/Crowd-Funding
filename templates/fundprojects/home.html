@@ -13,7 +13,7 @@
 <div>
     <ul>
         {% for category in categories %}
-            <li>{{ category.name }}</li>
+            <li><a href="{% url 'fundprojects:category_projects' category_id=category.id %}">{{ category.name }}</a></li>
         {% endfor %}
     </ul>
 </div>

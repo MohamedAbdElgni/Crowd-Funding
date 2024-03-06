@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ category.name }} Projects</title>
+</head>
+<body>
+    <h1>{{ category.name }} Projects</h1>
+    <ul>
+        {% for project in projects %}
+            <li>{{ project.title }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

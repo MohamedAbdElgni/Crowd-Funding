@@ -4,7 +4,7 @@ from .views import *
 app_name = 'fundprojects'
 urlpatterns = [
     path('', ProjectListView.as_view(), name='projects'),
-    path('create/', ProjectCreateView.as_view(), name='project_create'),
+    path('create/', create_project, name='project_create'),
     path('<int:project_id>/', project_details , name='project_details'),
     path('comment/<int:project_id>/', add_comment , name='add_comment'),
     path('report/<int:project_id>/', report_project , name='report_project'),
@@ -13,4 +13,6 @@ urlpatterns = [
     path('categories/', CategoryListView.as_view(), name='categories'),
     path('donate/<int:project_id>/', donate , name='donate'),
     path('rate/<int:project_id>/', rate_project , name='rate_project'),
+    path('category/<int:category_id>/', category_projects_view, name='category_projects'),
 ]
+#  path('create/', ProjectCreateView.as_view(), name='project_create'),

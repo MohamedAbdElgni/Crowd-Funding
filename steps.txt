@@ -137,7 +137,7 @@ ratings=[
       i- comments reports (Done)
       l- categoris end point (Done)
 
-      f- get all projects by category (still) yuusef
+      f- get all projects by category (done) yuusef
       j- ratings (done) mohamed
       k- donations (done)
       b- cancel project (still)youssef

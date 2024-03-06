@@ -5,11 +5,21 @@
 </head>
 <body>
     <h1>Create Project</h1>
-    <form method="post" enctype="multipart/form-data">
+    <form id="post_form" method="post" action="" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="file" name="image" accept="image/*" multiple>
-        <button type="submit">Create</button>
-    </form>
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+        {% for field in form %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label><br />
+            {{ field }} <br /> <br/>
+        {% endfor %}
+        {{ imageform.management_form }}
+        {% for form in imageform %}
+            <label for="{{ form.id_for_label }}">{{ form.label }}</label><br />
+            {{ form }}
+        {% endfor %}
+        <input type="submit" name="submit" value="Submit" />
+      </form>
 </body>
 </html>
