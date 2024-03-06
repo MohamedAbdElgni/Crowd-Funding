@@ -49,6 +49,7 @@ def create_project(request):
         if form.is_valid():
             f = form.save(commit=False)
             f.save()
+            form.save_m2m()
             for i in files:
                 ProjectPicture.objects.create(project=f, image=i)
             messages.success(request, "New Project Added")

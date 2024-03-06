@@ -5,7 +5,6 @@ from .models import *
 admin.site.register(Category)
 admin.site.register(Project)
 admin.site.register(ProjectPicture)
-admin.site.register(Tag)
 admin.site.register(Comments)
 admin.site.register(ProjectsReports)
 admin.site.register(CommentsReports)

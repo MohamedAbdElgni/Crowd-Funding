@@ -1,6 +1,5 @@
 from django.db import models
-
-# Create your models here.
+from taggit.managers import TaggableManager
 
 # Category Class ------------------------> 
 
@@ -30,6 +29,7 @@ class Project(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES)
     # user_id = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     user_id=models.IntegerField()
+    tags = TaggableManager()
 
     @classmethod
     def get_all_projects(cls):
@@ -46,9 +46,6 @@ class ProjectPicture(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='project_images/')
 
-class Tag(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project_tags')
-    name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name

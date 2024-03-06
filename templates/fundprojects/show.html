@@ -36,6 +36,11 @@
         <p><span class="fw-bold fs-5">Target: EGP </span> {{ project.total_target }}</p>
         <span class="text-danger"> -out standing ${{total_donations}}</span>
         <p><span class="fw-bold fs-5">Status: </span> {{ project.status }}</p>
+        <p><span class="fw-bold fs-5">tags: </span>
+            {% for tag in project.tags.all %}
+            {{ tag.name }},
+            {% endfor %}
+        </p>
         <p>average rating: {{ avg_rating }}</p>
         {% if comments %}
         <h3>Comments</h3>

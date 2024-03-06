@@ -1,11 +1,13 @@
 from django import forms
 from .models import *
+from taggit.forms import TagField
 
 class ProjectForm(forms.ModelForm):
+    tags = forms.CharField(required=False)
 
     class Meta:
         model = Project
-        fields = ['title', 'details', 'category', 'total_target', 'start_time', 'end_time', 'status', 'user_id']
+        fields = ['title', 'details', 'category', 'total_target', 'start_time', 'end_time', 'status', 'user_id', 'tags']
         widgets = {
             'start_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'end_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
@@ -15,6 +17,12 @@ class ProjectForm(forms.ModelForm):
         super(ProjectForm, self).__init__(*args, **kwargs)
         self.fields['category'].queryset = Category.objects.all()
 
+    def clean_tags(self):
+        tags = self.cleaned_data.get('tags')
+        if tags:
+            return [tag.strip() for tag in tags.split(',')]
+        return []
+    
 class MultipleFileInput(forms.ClearableFileInput):
     allow_multiple_selected = True
 
