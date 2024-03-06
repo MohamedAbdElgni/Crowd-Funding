@@ -1,13 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Projects</title>
-</head>
-<body>
-    <h1>All Projects</h1>
+{% extends "base.html" %}
+{%block content%}
+    <h1>All Projects
+        
+    </h1>
+    <div>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <p class="alert alert-{{ message.tags }}">{{ message }}</p>
+                {% endfor %}
+            </ul>
+            {% endif %}
+    </div>
 <form action="{% url 'fundprojects:project_create' %}" method="get">
 <button class="btn btn-danger" type="submit">Create Project</button>
 </form>
+
 <table class="table">
     <thead>
     <tr>
@@ -45,5 +53,4 @@
     {%endfor%}
     </tbody>
 </table>
-</body>
-</html>
+{%endblock content%}
