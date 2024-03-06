@@ -52,7 +52,7 @@ def create_project(request):
             form.save_m2m()
             for i in files:
                 ProjectPicture.objects.create(project=f, image=i)
-            messages.success(request, "New Project Added")
+            messages.success(request, "New Project Added",extra_tags='success')
             return redirect('fundprojects:projects')
         else:
             print(form.errors)
@@ -114,7 +114,7 @@ def add_comment(request, project_id):
     if request.method == 'POST':
         comment = request.POST['comment']
         Comments.objects.create(comment=comment, project_id=project_id, user_id=current_user['id'])
-        messages.success(request, 'Thank you for your comment')
+        messages.success(request, 'Thank you for your comment',extra_tags='success')
         return redirect('fundprojects:project_details', project_id=project_id)
     else:
         return redirect('fundprojects:project_details', project_id=project_id)
