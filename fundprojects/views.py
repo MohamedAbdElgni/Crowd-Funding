@@ -4,6 +4,8 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse_lazy
 from .models import *
 from .forms import ProjectForm
+from django.contrib import messages
+
 
 # Create your views here.
 users = [
@@ -56,18 +58,50 @@ class ProjectListView(ListView):
 
 # Project Details ------------------------------------------------>
 
+
+# Update Project ------------------------------------------------------------->
+
+class ProjectUpdateView(UpdateView):
+    model = Project
+    form_class = ProjectForm
+    template_name = 'fundprojects/update.html'
+    success_url = reverse_lazy('fundprojects:projects')
+
+# List All Categories --------------------------------------------------------->
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'fundprojects/categories.html'
+    context_object_name = 'categories'
+
+# Categorys' Products ----------------------------------------------------------->
+
+class CategoryProjectsView(ListView):
+    model = Project
+    template_name = 'fundprojects/category_projects.html'
+    context_object_name = 'projects'
+
+    def get_queryset(self):
+        category_id = self.kwargs['category_id'] 
+        return Project.objects.filter(category_id=category_id)
+
 def project_details(request, project_id):
     # add 5 related projects based on tage
     project = Project.objects.get(id=project_id)
     comments = Comments.get_comments_by_project(project_id)
-    return render(request, 'fundprojects/show.html', {'project': project, 'comments': comments})
-
+    total_donations = Donations.get_sum_of_donations(project_id)
+    avg_rating = Rating.get_avg_rating(project_id)
+    return render(request, 'fundprojects/show.html', {'project': project,
+                                                    'comments': comments, 
+                                                    'total_donations': total_donations, 
+                                                    'avg_rating': avg_rating})
 
 
 def add_comment(request, project_id):
     if request.method == 'POST':
         comment = request.POST['comment']
         Comments.objects.create(comment=comment, project_id=project_id, user_id=current_user['id'])
+        messages.success(request, 'Thank you for your comment')
         return redirect('fundprojects:project_details', project_id=project_id)
     else:
         return redirect('fundprojects:project_details', project_id=project_id)
@@ -106,31 +140,36 @@ def report_comment(request, comment_id):
 def delete_comment(request, project_id, comment_id):
    pass
 
-def donate (request, project_id):
-    pass
 
-# Update Project ------------------------------------------------------------->
+def donate(request, project_id):
+    project = get_object_or_404(Project, pk=project_id)
+    if request.method == 'POST':
+        amount = request.POST.get('amount')
+        if amount:
+            Donations.objects.create(amount=float(amount), project_id=project_id, user_id=current_user['id'])
+            messages.success(request, 'Thank you for your donation')
+            return redirect('fundprojects:project_details', project_id=project_id)
+        else:
+            messages.error(request, 'Please enter valid amount')
+            return redirect('fundprojects:project_details', project_id=project_id)
+        
 
-class ProjectUpdateView(UpdateView):
-    model = Project
-    form_class = ProjectForm
-    template_name = 'fundprojects/update.html'
-    success_url = reverse_lazy('fundprojects:projects')
-
-# List All Categories --------------------------------------------------------->
-
-class CategoryListView(ListView):
-    model = Category
-    template_name = 'fundprojects/categories.html'
-    context_object_name = 'categories'
-
-# Categorys' Products ----------------------------------------------------------->
-
-class CategoryProjectsView(ListView):
-    model = Project
-    template_name = 'fundprojects/category_projects.html'
-    context_object_name = 'projects'
-
-    def get_queryset(self):
-        category_id = self.kwargs['category_id'] 
-        return Project.objects.filter(category_id=category_id)
+def rate_project(request, project_id):
+    project = get_object_or_404(Project, pk=project_id)
+    if request.method == 'POST':
+        rating = request.POST.get('rating')
+        if int(rating)>=1 and int(rating)<=5:
+            if Rating.objects.filter(project_id=project_id, user_id=current_user['id']).exists():
+                Rating.objects.filter(project_id=project_id, user_id=current_user['id']).update(rating=rating)
+                messages.success(request, 'Rating updated successfully')
+            else:
+                Rating.objects.create(rating=rating, project_id=project_id, user_id=current_user['id'])
+                messages.success(request, 'Thank you for your rating')
+            
+            return redirect('fundprojects:project_details', project_id=project_id)
+        else:
+            messages.error(request, 'Please enter valid rating', extra_tags='danger')
+            return redirect('fundprojects:project_details', project_id=project_id)
+    else:
+        return redirect('fundprojects:project_details', project_id=project_id)
+    

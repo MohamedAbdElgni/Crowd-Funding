@@ -1,14 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
     <div class="container mt-5 mb-5">
-        <h1>Project Details</h1>
-        <button class="btn btn-primary"><a href="{% url 'fundprojects:report_project' project_id=project.id %}">Report</a></button>
+        <a class="btn btn-primary" href="{% url 'fundprojects:projects' %}">Back</a>
+        <h1>Project Details </h1>
+        {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <p class="alert alert-{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+    </ul>
+    {% endif %}
+        <hr>
+        <p>rate this project</p>
+        <form method="post" action="{% url 'fundprojects:rate_project' project_id=project.id %}" class="form form-control">
+            {% csrf_token %}
+            <input type="number" name="rating" placeholder="Rate this project" class="form-control " required>
+            <button type="submit" class="btn btn-success">Rate</button>
+        </form>
+
+        <hr>
+        <h3>Donate to this project</h3>
+        <form method="post" action="{% url 'fundprojects:donate' project_id=project.id %}" class="form form-control">
+            {% csrf_token %}
+            <input type="number" name="amount" placeholder="Donate to" class="form-control " required>
+            <button type="submit" class="btn btn-success">Donate</button>
+        </form>
+        <hr>
+        <button class="btn btn-primary "><a class="text-light" href="{% url 'fundprojects:report_project' project_id=project.id %}">Report</a></button>
         <div class="row">
             <div class="col-6">
             <div class="card p-3 w-75">
@@ -16,7 +34,9 @@
         <p><span class="fw-bold fs-5">Name: </span> {{ project.title }}</p>
         <p><span class="fw-bold fs-5">Details: </span> {{ project.details }}</p>
         <p><span class="fw-bold fs-5">Target: EGP </span> {{ project.total_target }}</p>
+        <span class="text-danger"> -out standing ${{total_donations}}</span>
         <p><span class="fw-bold fs-5">Status: </span> {{ project.status }}</p>
+        <p>average rating: {{ avg_rating }}</p>
         {% if comments %}
         <h3>Comments</h3>
         <ul>
@@ -44,7 +64,6 @@
             </div>  
         </div>
     </div>
-</body>
-</html>
+{% endblock %}
 
 

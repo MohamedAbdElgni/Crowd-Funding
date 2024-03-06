@@ -99,3 +99,32 @@ class CommentsReports(models.Model):
 
     def __str__(self):
         return self.report
+
+
+class Donations(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project_donations')
+    user_id = models.IntegerField()
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.amount)
+    
+    @classmethod
+    def get_sum_of_donations(cls, project_id):
+        
+        return cls.objects.filter(project=project_id).aggregate(models.Sum('amount'))['amount__sum']
+    
+    
+class Rating(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project_ratings')
+    user_id = models.IntegerField()
+    rating = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.rating)
+    
+    @classmethod
+    def get_avg_rating(cls, project_id):
+        return cls.objects.filter(project=project_id).aggregate(models.Avg('rating'))['rating__avg']

@@ -138,8 +138,8 @@ ratings=[
       l- categoris end point (Done)
 
       f- get all projects by category (still) yuusef
-      j- ratings (still) mohamed
-      k- donations (still)mohamed
+      j- ratings (done) mohamed
+      k- donations (done)
       b- cancel project (still)youssef
       z- search (still) ----None----
       3- imges and tags

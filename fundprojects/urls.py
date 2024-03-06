@@ -10,5 +10,7 @@ urlpatterns = [
     path('report/<int:project_id>/', report_project , name='report_project'),
     path('reportcomment/<int:comment_id>/', report_comment , name='report_comment'),
     path('<int:pk>/update/', ProjectUpdateView.as_view(), name='project_update'),
-    path('categories/', CategoryListView.as_view(), name='categories')
+    path('categories/', CategoryListView.as_view(), name='categories'),
+    path('donate/<int:project_id>/', donate , name='donate'),
+    path('rate/<int:project_id>/', rate_project , name='rate_project'),
 ]
