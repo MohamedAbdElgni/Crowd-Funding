@@ -4,17 +4,19 @@
 
 
 {%block content%}
-<div class="container">
-<h1>Create Project</h1>
+<div class="container my-2">
+    <h1>Create Project</h1>
 
-<a class="btn btn-primary" href="{% url 'fundprojects:projects' %}">Projects</a>
-<a class="btn btn-warning" href="{% url 'fundprojects:categories'%}">Categories</a>
-</div>
-<div>
-    <ul>
-        {% for category in categories %}
-            <li><a href="{% url 'fundprojects:category_projects' category_id=category.id %}">{{ category.name }}</a></li>
-        {% endfor %}
-    </ul>
+    <a class="btn btn-primary" href="{% url 'fundprojects:projects' %}">Projects</a>
+    <a class="btn btn-warning" href="{% url 'fundprojects:categories'%}">Categories</a>
+
+    <div>
+        <ul>
+            {% for category in categories %}
+            <li><a href="{% url 'fundprojects:category_projects' category_id=category.id %}">{{ category.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
 {%endblock%}

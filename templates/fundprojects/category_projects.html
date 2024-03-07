@@ -1,14 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ category.name }} Projects</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{%block title%}{{ category.name }} Projects{%endblock%}
+{% block content %}
+<div class="container my-2 ">
+
     <h1>{{ category.name }} Projects</h1>
     <ul>
         {% for project in projects %}
             <li>{{ project.title }}</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+</div>  
+{% endblock %}
