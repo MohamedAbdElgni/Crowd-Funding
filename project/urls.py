@@ -28,4 +28,5 @@ urlpatterns = [
     path('projects/', include('fundprojects.urls')),
     path('register/', register, name='register'),
     path('login/', login, name='login'),
+    path('logout/', user_logout, name='logout'),
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
