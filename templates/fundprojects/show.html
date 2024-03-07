@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container mt-5 mb-5">
-    <a class="btn btn-primary mb-3" href="{% url 'fundprojects:projects' %}">Back</a>
+    <a class="btn btn-warning fw-bold mb-3" href="{% url 'fundprojects:projects' %}"><<</a>
     <h1>Project Details</h1>
     {% if messages %}
     <div class="alert alert-info" role="alert">
@@ -41,8 +41,7 @@
             </div>
         </div>
     </div>
-    <hr>
-    <a class="btn btn-primary mb-3" href="{% url 'fundprojects:report_project' project_id=project.id %}">Report</a>
+
     <div class="card p-3">
         <hr class="text-danger">
         <p class="card-text"><span class="fw-bold fs-5">Name:</span> {{ project.title }}</p>
@@ -55,7 +54,9 @@
             {{ tag.name }},
             {% endfor %}
         </p>
-        <p class="card-text">Average Rating: {{ avg_rating }}</p>
+        <p class="card-text"><span class="fw-bold fs-5">Average Rating:</span> {{ avg_rating }}</p>
+        <hr class="mb-0"><a class=" mt-0" href="{% url 'fundprojects:report_project' project_id=project.id %}">Report</a> 
+        
         <div class="container mt-5">
             <h3>Comments</h3>
             {% if comments %}
@@ -82,12 +83,15 @@
 
         <form action="{% url 'fundprojects:add_comment' project_id=project.id %}" method="POST">
             {% csrf_token %}
-            <div class="mb-3">
-                <label for="comment" class="form-label">Add Comment</label>
+            <div class="my-3">
+                <label for="comment" class="form-label fst-italic fw-semibold">Add your Comment here </label>
                 <input type="text" class="form-control" id="comment" name="comment" placeholder="Enter comment"
                     required>
             </div>
-            <button type="submit" class="btn btn-primary">Add Comment</button>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary" style="background-color:#72B01D; border-radius:10px; text-decoration: none; color: #000; font-weight: 600;">Add Comment</button>
+            </div>
+            
         </form>
     </div>
 </div>

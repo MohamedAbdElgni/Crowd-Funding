@@ -3,10 +3,10 @@
 {%block title%}Categories{%endblock%}
 {% block content %}
 <div class="container my-2 ">
-    <h1>Categories</h1>
-    <ul>
+    <h1 class="text-center">Categories</h1>
+    <ul class="list-group-numbered">
         {% for category in categories %}
-            <li>{{ category.name }}</li>
+            <li class="">{{ category.name }}</li>
         {% endfor %}
     </ul>
 </div>  

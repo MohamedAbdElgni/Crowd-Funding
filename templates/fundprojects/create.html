@@ -3,7 +3,7 @@
 {%block title%}Create Project{%endblock%}
 {% block content %}
 
-<div class="container my-2 ">
+<div class="container my-2  ">
     <h1 class="text-center">Create Project</h1>
     <form id="post_form" method="post" action="" enctype="multipart/form-data">
         {% csrf_token %}
@@ -16,7 +16,10 @@
         <label for="{{ form.id_for_label }}" class="fw-bold">{{ form.label }}</label><br /> 
         {{ form }}
         {% endfor %}
-        <input type="submit" name="submit" value="Submit" style="background-color:#72B01D; border-radius:10px; text-decoration: none; color: #000; font-weight: 600;"/>
+        <div class=" my-3 text-center">
+            <input type="submit" name="submit" value="Submit"  class="w-25" style="background-color:#72B01D; border-radius:10px; text-decoration: none; color: #000; font-weight: 600;"/>
+
+        </div>
     </form>
 </div>
 {% endblock %}

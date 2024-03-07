@@ -5,7 +5,7 @@
 <div class="container ">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card">
+            <div class="card rounded-4 shadow">
                 <div class="card-header">
                     <h1 class="text-center">Login</h1>
                 </div>
@@ -21,7 +21,10 @@
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
                         <p class="text-danger">{{ loginerror }}</p>
-                        <button type="submit" class="btn btn-primary ">Login</button>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-outline-primary" style="background-color:#72B01D; border-radius:10px; text-decoration: none; color: #000; font-weight: 600;">Login</button>
+                        </div>
+                        
                     </form>
                 </div>
             </div>

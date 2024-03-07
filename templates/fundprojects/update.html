@@ -3,11 +3,14 @@
 {%block title%}Update Project{%endblock%}
 {% block content %}
 <div class="container my-2 ">
-    <h1>Update Project</h1>
+    <h1 class="text-center">Update Project</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Update</button>
+        <div class=" my-3 text-center">
+            <input type="submit" name="submit" value="Update"  class="w-25" style="background-color:#72B01D; border-radius:10px; text-decoration: none; color: #000; font-weight: 600;"/>
+
+        </div>
     </form>
 </div>
 {% endblock %}

@@ -9,8 +9,16 @@ class ProjectForm(forms.ModelForm):
         model = Project
         fields = ['title', 'details', 'category', 'total_target', 'start_time', 'end_time', 'status', 'user_id', 'tags']
         widgets = {
-            'start_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
-            'end_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'start_time': forms.DateTimeInput(attrs={"class": "form-control w-25",'type': 'datetime-local'}),
+            'end_time': forms.DateTimeInput(attrs={"class": "form-control w-25",'type': 'datetime-local'}),
+            'title':forms.TextInput(attrs={"class": "form-control w-50","placeholder":"Enter title"}),
+            'details':forms.Textarea(attrs={"class": "form-control w-50","placeholder":"Enter title", "rows": "5"}),
+            'category':forms.Select(attrs={"class": "form-control w-25"}),
+            'user_id':forms.TextInput(attrs={"class": "form-control w-25"}),
+            'total_target':forms.TextInput(attrs={"class": "form-control w-25","placeholder":"ex.2000"}),
+            'status':forms.Select(attrs={"class": "form-control w-25"}),
+            # 'tags':forms.i
+       
         }
 
     def __init__(self, *args, **kwargs):
