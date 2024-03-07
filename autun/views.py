@@ -13,7 +13,7 @@ def hello(request):
 
 def register(request):
     if request.user.is_authenticated:
-         return render(request,'welcom.html') 
+         return redirect('/')
 
     
     
@@ -88,7 +88,7 @@ def register(request):
 
 def login(request):
      if request.user.is_authenticated:
-          return render(request,'welcom.html')
+          return redirect('/')
      Allemails=list(Register.objects.all() )    
      if(request.method=="POST"):
           email=request.POST["email"]
@@ -107,9 +107,8 @@ def login(request):
                else:
                       context={'logineror':"invalid email or password"}
                       return render(request, 'loginP.html',context) 
-    
-
-
-
-
      return render(request,'loginP.html')
+
+def user_logout(request):
+     logout(request)
+     return redirect('login')
