@@ -7,9 +7,6 @@
     <h1 class="text-center">Create Project</h1>
     <form id="post_form" method="post" action="" enctype="multipart/form-data">
         {% csrf_token %}
-        {% for hidden in form.hidden_fields %}
-        {{ hidden }}
-        {% endfor %}
         {% for field in form %}
         <label for="{{ field.id_for_label }}" class="fw-bold">{{ field.label }}</label><br />
         {{ field }} <br /> <br />
