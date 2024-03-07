@@ -1,26 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Projects</title>
-</head>
-<body>
-    <h1>All Projects</h1>
-<form action="{% url 'fundprojects:project_create' %}" method="get">
-<button class="btn btn-danger" type="submit">Create Project</button>
-</form>
-<table class="table">
+{% extends "base.html" %}
+
+{%block title%}Projects{%endblock%}
+{% block content %}
+<div class="container my-2 ">
+<h1 class="text-center">All Projects</h1>
+<div class=" d-flex justify-content-end">
+    <form action="{% url 'fundprojects:project_create' %}" method="get" >
+        <button class="btn " type="submit" style="background-color:#72B01D; border-radius:10px; text-decoration: none; color: #000; font-weight: 600;">Create Project</button>
+    </form>
+</div>
+
+<table class="table " style="min-height: 30vh;">
     <thead>
-    <tr>
-        <td>ID</td>
-        <td>Title</td>
-        <td>Details</td>
-        <td>Category</td>
-        <td>Actions</td>
-    </tr>
+        <tr>
+            <td>ID</td>
+            <td>Title</td>
+            <td>Details</td>
+            <td>Category</td>
+            <td>Actions</td>
+        </tr>
     </thead>
     <tbody class="table-group-divider">
-    {% for project in projects %}
-         <tr>
+        {% for project in projects %}
+        <tr>
             <td>{{ project.id }}</td>
             <td>{{ project.title }}</td>
             <td>{{ project.details }}</td>
@@ -35,15 +37,15 @@
                     <button type="submit" class="btn btn-warning">Update</button>
                 </form>
                 &nbsp;
-                <form >
+                <form>
                     {% csrf_token %}
                     <button type="submit" class="btn btn-warning">Delete</button>
                 </form>
-                
+
             </td>
         </tr>
-    {%endfor%}
+        {%endfor%}
     </tbody>
 </table>
-</body>
-</html>
+</div>  
+{% endblock %}

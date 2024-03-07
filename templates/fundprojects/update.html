@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Update Project</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{%block title%}Update Project{%endblock%}
+{% block content %}
+<div class="container my-2 ">
     <h1>Update Project</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Update</button>
     </form>
-</body>
-</html>
+</div>
+{% endblock %}
