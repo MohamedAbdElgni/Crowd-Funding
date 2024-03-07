@@ -42,12 +42,18 @@
                     <li class="nav-item">
                         <a class="nav-link fw-bold text-black " href="{% url 'fundprojects:categories'%}">CATEGORIES</a>
                     </li>
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
                       <a class="nav-link fw-bold text-black" href="{% url 'login' %}">LOGIN</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link fw-bold text-black" href="{% url 'register' %}">REGISTER</a>
                     </li>
+                    {% else %}
+                    <li class="nav-item">
+                      <a class="nav-link fw-bold text-black" href="{% url 'logout' %}">LOGOUT</a>
+                    </li>
+                    {% endif %}
                 </ul>
     
               
