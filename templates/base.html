@@ -25,15 +25,15 @@
 
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-md bg-body-tertiary  sticky-top ">
+<body class="bg-body-tertiary h-100" style="background-color: #f8f9fa;min-height: 100vh;">
+    <nav class="navbar navbar-expand-md bg-body-tertiary  sticky-top shadow ">
         <a class="navbar-brand  ms-3 fs-4" href="{%url 'home'%}"><b> CROWD FUNDING </b></a>
         <button class="navbar-toggler bg-white me-3" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="w-25  me-4 ms-3">
+        <div class="w-25  me-5 ms-3">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto me-4">
                     <li class="nav-item active">
@@ -41,6 +41,12 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link fw-bold text-black " href="{% url 'fundprojects:categories'%}">CATEGORIES</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link fw-bold text-black" href="{% url 'login' %}">LOGIN</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link fw-bold text-black" href="{% url 'register' %}">REGISTER</a>
                     </li>
                 </ul>
     
@@ -56,9 +62,11 @@
         </div>
         </div>
     </nav>
+    <div class="container h-100 mt-5" style="min-height: 70vh;">
+        
     {% block content %}
     {% endblock %}
-
+    </div>
     <!-- Footer -->
 <footer class="bg-body-tertiary text-center w-100 " style="position: -webkit-sticky;bottom: 0;  ">
     <!-- Grid container -->
@@ -91,9 +99,9 @@
             <!--Grid column-->
             <div class="col-auto">
               <!-- Submit button -->
-              <button data-mdb-ripple-init type="submit" class="btn btn-outline mb-4 "style="background-color:#72B01D; border-radius:10px; text-decoration: none; color: #000; font-weight: 600;">
+              <a data-mdb-ripple-init type="submit" class="btn btn-outline mb-4 "style="background-color:#72B01D; border-radius:10px; text-decoration: none; color: #000; font-weight: 600;">
                 Sign UP
-              </button>
+              </a>
             </div>
             <!--Grid column-->
           </div>

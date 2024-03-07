@@ -1,22 +1,29 @@
 {% extends "base.html" %}
 
-{%block title%}Create Project{%endblock%}
 
-
-{%block content%}
-<div class="container my-2">
-    <h1>Create Project</h1>
-
-    <a class="btn btn-primary" href="{% url 'fundprojects:projects' %}">Projects</a>
-    <a class="btn btn-warning" href="{% url 'fundprojects:categories'%}">Categories</a>
-
-    <div>
-        <ul>
-            {% for category in categories %}
-            <li><a href="{% url 'fundprojects:category_projects' category_id=category.id %}">{{ category.name }}</a>
-            </li>
-            {% endfor %}
-        </ul>
+{% block content %}
+<div class='container-fluid'>
+    <div class="cat-bar mx-auto" style="margin-top: 20px; 
+    margin-bottom: 20px; display: flex; justify-content: center; align-items: center; flex-wrap: wrap;
+    ">
+        {% for cat in categories %}
+        <a class="btn btn-dark me-2">{{ cat.name }}</a>
+        {% endfor %}
+    </div>
+    <div class="row pt-3">
+        {% for project in lts_projects %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                
+                <div class="card-body">
+                    <h5 class="card-title">{{ project.title }}</h5>
+                    <p class="card-text">{{ project.details }}</p>
+                    
+                    <a href="{% url 'fundprojects:project_details' project_id=project.id  %}" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </div>
-{%endblock%}
+{% endblock %}

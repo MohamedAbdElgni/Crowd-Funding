@@ -20,10 +20,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from fundprojects.views import *
 from .views import *
+from autun.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('projects/', include('fundprojects.urls')),
-    path('auth/',include("autun.urls")),
+    path('register/', register, name='register'),
+    path('login/', login, name='login'),
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

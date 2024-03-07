@@ -1,16 +1,31 @@
-<!DOCTYPE html>
-<html>
-    <body>
-        <h1>LOgin page</h1>
-        <form method="post">
-            {%csrf_token%}
-            <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" required><br><br>
-        <label for="email">password:</label><br>
-        <input type="password" id="email" name="password" required><br><br>
-        <p style="color: red;">{{logineror}}</p>
+{% extends "base.html" %}
+{% load static %}
 
-        <input type="submit" value="Login">
-        </form>
-    </body>
-</html>
+{% block content %}
+<div class="container ">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="text-center">Login</h1>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password:</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <p class="text-danger">{{ loginerror }}</p>
+                        <button type="submit" class="btn btn-primary ">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
