@@ -1,0 +1,38 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="{%static 'bootstrap/css/bootstrap.css'%}">
+</head>
+<body>
+    <h2>Registration Form</h2>
+    <form action="#" method="post">
+        {%csrf_token%}
+        <label for="name">First Name:</label><br>
+        <input type="text" id="name" name="firstname" required><br><br>
+        <p style="color: red;">{{nameError}}</p>
+        <label for="name">Last Name:</label><br>
+        <input type="text" id="name" name="lname" required><br><br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+        <p style="color: red;">{{emailRequierd}},{{emailsentax}},{{emailExist}}</p>
+
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+        <p style="color: red;">{{passError}}</p>
+
+        <label for="confirm_password">Confirm Password:</label><br>
+        <input type="password" id="confirm_password" name="confirm_password" required><br><br>        
+        <label for="phone">Phone Number:</label><br>
+        <input type="tel" id="phone" name="phone" required><br><br>
+        <p style="color: red;">{{phonerequird}},{{phoneMatch}}</p>
+        <button type="button" class="btn btn-danger">Danger</button>
+
+        <input type="submit" value="Register">
+    </form>
+</body>
+</html>
