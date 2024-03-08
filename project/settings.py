@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'fundprojects.apps.FundprojectsConfig',
+    'authentication.apps.AuthenticationConfig',
     'taggit'
 ]
 

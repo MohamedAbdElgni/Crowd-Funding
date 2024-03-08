@@ -20,9 +20,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from fundprojects.views import *
 from .views import *
+from authentication.views import *
+from django.contrib.auth import views as auth_views
+from .settings import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('projects/', include('fundprojects.urls')),
+    path('auth/', include('authentication.urls')),
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

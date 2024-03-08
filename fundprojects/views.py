@@ -100,7 +100,8 @@ def category_projects_view(request, category_id):
     
 def project_details(request, project_id):
     # add 5 related projects based on tage
-    project = Project.objects.get(id=project_id)
+    # project = Project.objects.get(id=project_id)
+    project = get_object_or_404(Project, pk=project_id)
     comments = Comments.get_comments_by_project(project_id)
     total_donations = Donations.get_sum_of_donations(project_id)
     avg_rating = Rating.get_avg_rating(project_id)
