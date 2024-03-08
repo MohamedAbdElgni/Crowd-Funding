@@ -30,6 +30,8 @@ class Project(models.Model):
     # user_id = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     # user_id=models.IntegerField()
     tags = TaggableManager()
+    image = models.ImageField(null=True,blank=True,upload_to='project_images/')
+
 
     @classmethod
     def get_all_projects(cls):
