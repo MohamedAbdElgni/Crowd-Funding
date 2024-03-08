@@ -27,7 +27,9 @@
                 <div class="card mb-4 rounded-4 shadow">
                     <div class="card-body">
                         <div className='py-3 '>
-                            <img src={{project.image}} style="height: 300px;" class='w-100 ' alt={{project.title}} />
+                            {% if project.projectpicture_set.all %}
+                                <img src="{{ project.projectpicture_set.first.image.url }}" class="img-fluid" alt="Cover Image">
+                            {% endif %}
                             <h3 class="card-title">{{ project.title }}</h3>
                             <h6 class="card-title text-muted">{{ project.category.name }}</h6>
 
