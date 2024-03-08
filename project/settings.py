@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'fundprojects.apps.FundprojectsConfig',
-    'taggit',
-     'autun'
+    'authentication.apps.AuthenticationConfig',
+    'taggit'
 ]
 
 MIDDLEWARE = [
