@@ -7,17 +7,16 @@ class ProjectForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = ['title', 'details', 'category', 'total_target', 'start_time', 'end_time', 'status', 'user_id', 'tags']
+        fields = ['title', 'details', 'category', 'total_target', 'start_time', 'end_time', 'status', 'tags']
         widgets = {
-            'start_time': forms.DateTimeInput(attrs={"class": "form-control w-25",'type': 'datetime-local'}),
-            'end_time': forms.DateTimeInput(attrs={"class": "form-control w-25",'type': 'datetime-local'}),
+            'start_time': forms.DateInput(attrs={"class": "form-control w-25",'type': 'date'}),
+            'end_time': forms.DateInput(attrs={"class": "form-control w-25",'type': 'date'}),
             'title':forms.TextInput(attrs={"class": "form-control w-50","placeholder":"Enter title"}),
             'details':forms.Textarea(attrs={"class": "form-control w-50","placeholder":"Enter title", "rows": "5"}),
             'category':forms.Select(attrs={"class": "form-control w-25"}),
-            'user_id':forms.TextInput(attrs={"class": "form-control w-25"}),
             'total_target':forms.TextInput(attrs={"class": "form-control w-25","placeholder":"ex.2000"}),
             'status':forms.Select(attrs={"class": "form-control w-25"}),
-            # 'tags':forms.i
+            'tags':forms.TextInput(attrs={"class": "form-control w-50","placeholder":"ex.2000"}),
        
         }
 

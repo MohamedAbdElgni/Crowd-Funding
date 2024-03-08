@@ -24,11 +24,11 @@ class Project(models.Model):
     details = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     total_target = models.DecimalField(max_digits=10, decimal_places=2)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    start_time = models.DateField()
+    end_time = models.DateField()
     status = models.CharField(max_length=10, choices=STATUS_CHOICES)
     # user_id = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    user_id=models.IntegerField()
+    # user_id=models.IntegerField()
     tags = TaggableManager()
 
     @classmethod

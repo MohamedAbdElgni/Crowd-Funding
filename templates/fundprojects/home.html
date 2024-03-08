@@ -7,14 +7,13 @@
     margin-bottom: 20px; display: flex; justify-content: center; align-items: center; flex-wrap: wrap;
     ">
         {% for cat in categories %}
-        <a class="btn btn-dark me-2 fw-bolder shadow">{{ cat.name }}</a>
+        <a class="btn btn-dark me-2 fw-bolder shadow" href="{%url 'fundprojects:category_projects' category_id=cat.id  %}">{{ cat.name }}</a>
         {% endfor %}
     </div>
     <div class="row pt-3">
         {% for project in lts_projects %}
-        <div class="col-md-4">
-            <div class="card mb-4">
-                
+        <div class="col-md-4 ">
+            <div class="card mb-4 rounded-4 shadow">
                 <div class="card-body">
                     <h5 class="card-title">{{ project.title }}</h5>
                     <p class="card-text">{{ project.details }}</p>
