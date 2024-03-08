@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from .models import *
 from .forms import *
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 users = [
@@ -110,7 +110,7 @@ def project_details(request, project_id):
                                                     'total_donations': total_donations, 
                                                     'avg_rating': avg_rating})
 
-
+@login_required
 def add_comment(request, project_id):
     if request.method == 'POST':
         comment = request.POST['comment']
@@ -124,7 +124,7 @@ def delete_comment(request, project_id, comment_id):
     pass
 
 
-
+@login_required
 def report_project(request, project_id):
     project = get_object_or_404(Project, pk=project_id)  
     if request.method == 'POST':
@@ -137,7 +137,7 @@ def report_project(request, project_id):
     else:
         return render(request, 'fundprojects/report_project.html', {'project': project})
 
-
+@login_required
 def report_comment(request, comment_id):
     comment = get_object_or_404(Comments, pk=comment_id)
     if request.method == 'POST':
@@ -154,7 +154,7 @@ def report_comment(request, comment_id):
 def delete_comment(request, project_id, comment_id):
    pass
 
-
+@login_required
 def donate(request, project_id):
     project = get_object_or_404(Project, pk=project_id)
     if request.method == 'POST':
@@ -167,7 +167,7 @@ def donate(request, project_id):
             messages.error(request, 'Please enter valid amount')
             return redirect('fundprojects:project_details', project_id=project_id)
         
-
+@login_required
 def rate_project(request, project_id):
     project = get_object_or_404(Project, pk=project_id)
     if request.method == 'POST':

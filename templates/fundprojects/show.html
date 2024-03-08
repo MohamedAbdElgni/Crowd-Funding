@@ -1,69 +1,97 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="container mt-5 mb-5">
-        <a class="btn btn-primary" href="{% url 'fundprojects:projects' %}">Back</a>
-        <h1>Project Details </h1>
-        {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <p class="alert alert-{{ message.tags }}">{{ message }}</p>
-        {% endfor %}
-    </ul>
+<div class="container mt-5 mb-5">
+    <a class="btn btn-warning fw-bold mb-3" href="{% url 'fundprojects:projects' %}"><<</a>
+    <h1>Project Details</h1>
+    {% if messages %}
+    <div class="alert alert-info" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <ul class="messages">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
     {% endif %}
-        <hr>
-        <p>rate this project</p>
-        <form method="post" action="{% url 'fundprojects:rate_project' project_id=project.id %}" class="form form-control">
-            {% csrf_token %}
-            <input type="number" name="rating" placeholder="Rate this project" class="form-control " required>
-            <button type="submit" class="btn btn-success">Rate</button>
-        </form>
+    <hr>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="card p-3">
+                <p class="card-title">Rate this project</p>
+                <form method="post" action="{% url 'fundprojects:rate_project' project_id=project.id %}" class="form">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input type="number" name="rating" placeholder="Rate this project" class="form-control"
+                            required>
+                        <button type="submit" class="btn btn-success">Rate</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h3 class="card-title">Donate to this project</h3>
+                <form method="post" action="{% url 'fundprojects:donate' project_id=project.id %}" class="form">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input type="number" name="amount" placeholder="Donate to" class="form-control" required>
+                        <button type="submit" class="btn btn-success">Donate</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-        <hr>
-        <h3>Donate to this project</h3>
-        <form method="post" action="{% url 'fundprojects:donate' project_id=project.id %}" class="form form-control">
-            {% csrf_token %}
-            <input type="number" name="amount" placeholder="Donate to" class="form-control " required>
-            <button type="submit" class="btn btn-success">Donate</button>
-        </form>
-        <hr>
-        <button class="btn btn-primary "><a class="text-light" href="{% url 'fundprojects:report_project' project_id=project.id %}">Report</a></button>
-        <div class="row">
-            <div class="col-6">
-            <div class="card p-3 w-75">
+    <div class="card p-3">
         <hr class="text-danger">
-        <p><span class="fw-bold fs-5">Name: </span> {{ project.title }}</p>
-        <p><span class="fw-bold fs-5">Details: </span> {{ project.details }}</p>
-        <p><span class="fw-bold fs-5">Target: EGP </span> {{ project.total_target }}</p>
-        <span class="text-danger"> -out standing ${{total_donations}}</span>
-        <p><span class="fw-bold fs-5">Status: </span> {{ project.status }}</p>
-        <p><span class="fw-bold fs-5">tags: </span>
+        <p class="card-text"><span class="fw-bold fs-5">Name:</span> {{ project.title }}</p>
+        <p class="card-text"><span class="fw-bold fs-5">Details:</span> {{ project.details }}</p>
+        <p class="card-text"><span class="fw-bold fs-5">Target: EGP</span> {{ project.total_target }}</p>
+        <p class="card-text"><span class="fw-bold fs-5">Outstanding:</span> ${{ total_donations }}</p>
+        <p class="card-text"><span class="fw-bold fs-5">Status:</span> {{ project.status }}</p>
+        <p class="card-text"><span class="fw-bold fs-5">Tags:</span>
             {% for tag in project.tags.all %}
             {{ tag.name }},
             {% endfor %}
         </p>
-        <p>average rating: {{ avg_rating }}</p>
-        {% if comments %}
-        <h3>Comments</h3>
-        <ul>
-            {% for comment in comments %}
-            <li>{{ comment.comment }} 
-                <a href="{% url 'fundprojects:report_comment' comment_id=comment.id %}"><em>report</em></a>
-                <a href="#"><em>delete</em></a>
-            </li>
-            <small>By:User name</small>
-            <small>date: {{ comment.created_at }}</small>
-            <hr>
-            {% endfor %}
-        </ul>
-        {% else %}
-        <p>No comments yet</p>
-        {% endif %}
+        <p class="card-text"><span class="fw-bold fs-5">Average Rating:</span> {{ avg_rating }}</p>
+        <hr class="mb-0"><a class=" mt-0" href="{% url 'fundprojects:report_project' project_id=project.id %}">Report</a> 
+        
+        <div class="container mt-5">
+            <h3>Comments</h3>
+            {% if comments %}
+            <div class="row">
+                {% for comment in comments %}
+                <div class="col-12 mb-1">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">{{ comment.comment }}</p>
+                            <div class="d-flex justify-content-between">
+                                <small class="text-muted">By: User name</small>
+                                <small class="text-muted">Date: {{ comment.created_at }}</small>
+                            </div>
+                            <a href="{% url 'fundprojects:report_comment' comment_id=comment.id %}" class="card-link">Report</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p>No comments yet</p>
+            {% endif %}
+        </div>
+
         <form action="{% url 'fundprojects:add_comment' project_id=project.id %}" method="POST">
             {% csrf_token %}
-            <div class="form-group">
-                <label for="comment">Add Comment</label>
-                <input type="text" class="form-control" id="comment" name="comment" placeholder="Enter comment" required>
-            <button type="submit" class="btn btn-primary">Add Comment</button>
+            <div class="my-3">
+                <label for="comment" class="form-label fst-italic fw-semibold">Add your Comment here </label>
+                <input type="text" class="form-control" id="comment" name="comment" placeholder="Enter comment"
+                    required>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary" style="background-color:#72B01D; border-radius:10px; text-decoration: none; color: #000; font-weight: 600;">Add Comment</button>
+            </div>
+            
         </form>
     </div>
             </div>  
@@ -94,5 +122,3 @@
         });
     </script>
 {% endblock %}
-
-

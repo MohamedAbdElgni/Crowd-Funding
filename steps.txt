@@ -142,4 +142,5 @@ ratings=[
       k- donations (done)
       b- cancel project (still)youssef
       z- search (still) ----None----
-      3- imges and tags
+      3- imges (done)
+      x- tags
