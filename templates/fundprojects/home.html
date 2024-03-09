@@ -4,6 +4,16 @@
 {% block content %}
 {%load static%}
 <div class='container-fluid p-0'>
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show mt-2" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
     <div class="bg-info " style="
     margin-bottom: 20px; display: flex; justify-content: center; align-items: center; flex-wrap: wrap;
     height: 300px; background-image: url('https://jmcaccounts.com/wp-content/uploads/2022/07/Crowdfunding.png');background-position:1%;">

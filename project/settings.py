@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-9dx9-&(813js!kh&#mbl$uw-@icn$#xwoat20uvyht6@9o$p^2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -131,3 +131,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # MEDIA 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# EMAIL
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+#whae hwrv pedt hnxz
+EMAIL_HOST_USER = 'crowdfunding241@gmail.com'
+EMAIL_HOST_PASSWORD = 'whaehwrvpedthnxz'
+EMAIL_FROM = 'crowdfunding241@gmail.com'
+
+# AUTHENTICATION
+# means 24 hours
+PASSWORD_RESET_TIMEOUT= 86400 # 24 hours
+

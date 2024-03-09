@@ -75,6 +75,7 @@ class ProjectListView(ListView):
 class ProjectUpdateView(UpdateView):
     model = Project
     form_class = ProjectForm
+    
     template_name = 'fundprojects/update.html'
     success_url = reverse_lazy('fundprojects:projects')
 
