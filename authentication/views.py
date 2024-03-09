@@ -1,4 +1,4 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import get_object_or_404, render , redirect
 from django.contrib import messages
 
 from authentication.token import AccountActivationTokenGenerator
@@ -14,6 +14,7 @@ def activate(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
         user = User.objects.get(pk=uid)
+        print(user)
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
     if user is not None and account_activation_token.check_token(user, token):
@@ -58,25 +59,32 @@ def register(request):
         form = RegistrationForm()
     return render(request, 'authentication/register.html', {'form': form})
 
-
 def login(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+    
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            user = authenticate(username=username, password=password)
+            user = authenticate(request, username=username, password=password)
             if user is not None:
                 if user.is_active:
                     auth_login(request, user)
                     return redirect('/')
                 else:
-                    messages.error(request, 'Your account is not activated. Please contact support.')
+                    messages.error(request, 'Please activate your account first')
             else:
                 messages.error(request, 'Invalid username or password')
+                
+        else:
+            messages.error(request, 'Invalid form submission')
     else:
         form = LoginForm()
+    
     return render(request, 'authentication/login.html', {'form': form})
+
 def logout(request):
     auth_logout(request)
     return redirect('/')

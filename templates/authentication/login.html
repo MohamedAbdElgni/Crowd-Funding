@@ -16,7 +16,7 @@
             <div class="card p-3 w-75">
                 <form method="post">
                     {%csrf_token%}
-                    {{form}}
+                    {{form.as_p}}
                 <input type="submit" value="login" class="btn btn-dark mt-2">
                 </form>
             </div>
