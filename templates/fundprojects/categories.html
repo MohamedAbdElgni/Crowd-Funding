@@ -3,11 +3,40 @@
 {%block title%}Categories{%endblock%}
 {% block content %}
 <div class="container my-2 ">
-    <h1 class="text-center">Categories</h1>
-    <ul class="list-group-numbered">
+    <h1 class="text-center ">Categories</h1>
+
+
+    <div class="row p-1">
         {% for category in categories %}
-            <li class="">{{ category.name }}</li>
+        <div class="col-md-4">
+            <div class="card mb-4 rounded-4 shadow">
+                <div class="card-body">
+                    <div className='py-3  '>
+                        {% if category.image %}
+                        <img src="{{ category.image.url }}" class="img-fluid" alt="Cover Image" style="height: 300px;">
+                        {% else %}
+                        <h6 style="height: 290px;" class="d-flex text-muted justify-content-center align-items-center">No image available</h6>
+                        {% endif %}
+                        <h3 class="card-title">{{ category.name }}</h3>
+                        <h6 class="card-title text-muted">{{ category.description }}</h6>
+                        <div class="text-center">
+                            <a class="btn btn-dark me-2 fw-bolder shadow"
+                                href="{%url 'fundprojects:category_projects' category_id=category.id  %}"
+                                class="btn btn-outline-primary"
+                                style="background-color:#72B01D; border-radius:10px; text-decoration: none; color: #000; font-weight: 600;">
+                                View
+                            </a>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
         {% endfor %}
-    </ul>
-</div>  
+    </div>
+</div>
 {% endblock %}

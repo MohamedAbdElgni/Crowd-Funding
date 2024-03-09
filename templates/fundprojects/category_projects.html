@@ -4,11 +4,50 @@
 {% block content %}
 <div class="container my-2 ">
 
-    <h1>{{ category.name }} Projects</h1>
-    <ul>
+    <h1 class="text-center">{{ category.name }} Projects</h1>
+    <div class="row p-1">
+
         {% for project in projects %}
-            <li>{{ project.title }}</li>
+        <div class="col-md-4">
+            <div class="card mb-4 rounded-4 shadow">
+                <div class="card-body">
+                    <div className='py-3  '>
+                        {% if project.projectpicture_set.all %}
+                        <img src="{{ project.projectpicture_set.first.image.url }}" class="img-fluid" alt="Cover Image"
+                            style="height: 300px;">
+                        {% endif %}
+                        <h3 class="card-title">{{ project.title }}</h3>
+                        <h6 class="card-title text-muted">{{ project.category.name }}</h6>
+
+
+                        <div class=" d-flex justify-content-between py-2">
+
+                            <form action="{% url 'fundprojects:project_update' pk=project.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-success">Update</button>
+                            </form>
+                            &nbsp;
+
+                            <a href="{% url 'fundprojects:project_details' project_id=project.id  %}"
+                                class="btn btn-outline-primary"
+                                style="background-color:#72B01D; border-radius:10px; text-decoration: none; color: #000; font-weight: 600;">
+                                View
+                            </a>
+                            &nbsp;
+
+                            <form>
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
         {% endfor %}
-    </ul>
-</div>  
+    </div>
+</div>
 {% endblock %}
