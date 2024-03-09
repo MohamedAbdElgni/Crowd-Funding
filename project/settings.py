@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 
+from django.urls import reverse_lazy
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-9dx9-&(813js!kh&#mbl$uw-@icn$#xwoat20uvyht6@9o$p^2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -145,4 +147,6 @@ EMAIL_FROM = 'crowdfunding241@gmail.com'
 # AUTHENTICATION
 # means 24 hours
 PASSWORD_RESET_TIMEOUT= 86400 # 24 hours
+
+
 

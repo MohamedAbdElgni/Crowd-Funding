@@ -24,9 +24,12 @@ from authentication.views import *
 from django.contrib.auth import views as auth_views
 from .settings import *
 
+
 urlpatterns = [
+    path('auth/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('projects/', include('fundprojects.urls')),
     path('auth/', include('authentication.urls')),
+    
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

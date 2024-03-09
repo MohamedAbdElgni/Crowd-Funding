@@ -30,7 +30,7 @@ def activate(request, uidb64, token):
 # Create your views here.
 def activation_email(request, user, email):
     mail_subject = 'Activate your account.'
-    mail_msg = render_to_string('authentication/template_activate_account.html', {
+    mail_msg = render_to_string('registration/activation_email.html', {
         'user': user.username,
         'domain': get_current_site(request).domain,
         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -57,7 +57,7 @@ def register(request):
     
     else:
         form = RegistrationForm()
-    return render(request, 'authentication/register.html', {'form': form})
+    return render(request, 'registration/register.html', {'form': form})
 
 def login(request):
     if request.user.is_authenticated:
@@ -83,7 +83,7 @@ def login(request):
     else:
         form = LoginForm()
     
-    return render(request, 'authentication/login.html', {'form': form})
+    return render(request, 'registration/login.html', {'form': form})
 
 def logout(request):
     auth_logout(request)
