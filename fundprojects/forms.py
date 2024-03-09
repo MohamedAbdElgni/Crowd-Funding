@@ -9,13 +9,13 @@ class ProjectForm(forms.ModelForm):
         model = Project
         fields = ['title', 'details', 'category', 'total_target', 'start_time', 'end_time', 'status', 'tags']
         widgets = {
-            'start_time': forms.DateInput(attrs={"class": "form-control w-25",'type': 'date'}),
-            'end_time': forms.DateInput(attrs={"class": "form-control w-25",'type': 'date'}),
-            'title':forms.TextInput(attrs={"class": "form-control w-50","placeholder":"Enter title"}),
-            'details':forms.Textarea(attrs={"class": "form-control w-50","placeholder":"Enter title", "rows": "5"}),
-            'category':forms.Select(attrs={"class": "form-control w-25"}),
-            'total_target':forms.TextInput(attrs={"class": "form-control w-25","placeholder":"ex.2000"}),
-            'status':forms.Select(attrs={"class": "form-control w-25"}),
+            'start_time': forms.DateInput(attrs={"class": "form-control w-50 ",'type': 'date'}),
+            'end_time': forms.DateInput(attrs={"class": "form-control w-50",'type': 'date'}),
+            'title':forms.TextInput(attrs={"class": "form-control w-100 ","placeholder":"Enter title"}),
+            'details':forms.Textarea(attrs={"class": "form-control w-100  ","placeholder":"Enter title", "rows": "5"}),
+            'category':forms.Select(attrs={"class": "form-control  w-50"}),
+            'total_target':forms.TextInput(attrs={"class": "form-control w-50","placeholder":"ex.2000"}),
+            'status':forms.Select(attrs={"class": "form-control w-50"}),
             'tags':forms.TextInput(attrs={"class": "form-control w-50","placeholder":"ex.2000"}),
        
         }

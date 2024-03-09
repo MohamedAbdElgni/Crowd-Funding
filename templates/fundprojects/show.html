@@ -51,10 +51,10 @@
         <p class="card-text"><span class="fw-bold fs-5">Status:</span> {{ project.status }}</p>
         <p class="card-text"><span class="fw-bold fs-5">Tags:</span>
             {% for tag in project.tags.all %}
-            {{ tag.name }},
+            <span class="badge bg-info">{{ tag.name }}</span>&nbsp;
             {% endfor %}
         </p>
-        <p class="card-text"><span class="fw-bold fs-5">Average Rating:</span> {{ avg_rating }}</p>
+        <p class="card-text"><span class="fw-bold fs-5">Average Rating:</span> {{ avg_rating }} ⭐</p>
         <hr class="mb-0"><a class=" mt-0" href="{% url 'fundprojects:report_project' project_id=project.id %}">Report</a> 
         
         <div class="container mt-5">

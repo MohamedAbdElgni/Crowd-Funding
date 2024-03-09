@@ -57,21 +57,20 @@
         </li>
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link fw-bold text-black" href="#">LOGIN</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link fw-bold text-black" href="#">REGISTER</a>
+          <a class="nav-link fw-bold text-black" href="{% url 'logout' %}">LOGOUT</a>
         </li>
         {% else %}
         <li class="nav-item">
-          <a class="nav-link fw-bold text-black" href="#">LOGOUT</a>
+          <a class="nav-link fw-bold text-black" href="{% url 'login' %}">LOGIN</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold text-black" href="{% url 'register' %}">REGISTER</a>
         </li>
         {% endif %}
       </ul>
     </div>
   </nav>
-  <div class="container h-100 mt-5" style="min-height: 70vh;">
-
+  <div class="container-fluid p-0 h-100 " style="min-height: 70vh;">
     {% block content %}
     {% endblock %}
   </div>
