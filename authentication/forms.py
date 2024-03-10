@@ -1,7 +1,12 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, URLValidator
+from .models import *
+from django.core.exceptions import ValidationError
+
+
+
 
 
 class RegistrationForm(UserCreationForm):
@@ -26,10 +31,6 @@ class RegistrationForm(UserCreationForm):
         attrs={
             "class": "form-control"
         }))
-    profile_picture = forms.ImageField(required=False, widget=forms.FileInput(
-        attrs={
-            "class": "form-control"
-        }))
     password1 = forms.CharField(label="Password",widget=forms.PasswordInput(attrs={
         "class": "form-control"
     }))
@@ -39,7 +40,7 @@ class RegistrationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username' ,'email', 'mobile_phone', 'profile_picture', 'password1', 'password2']
+        fields = ['first_name', 'last_name', 'username' ,'email', 'mobile_phone', 'password1', 'password2']
 
 
     def clean_mobile_phone(self):
@@ -59,3 +60,51 @@ class LoginForm(forms.Form):
         }))
     
 
+
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['profile_picture', 'birth_date', 'facebook', 'twitter', 'linkedin', 'bio']
+        
+        widgets = {
+            'profile_picture': forms.FileInput(attrs={'class': ['form-control', 'form-control-file']}),
+            'birth_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'facebook': forms.URLInput(attrs={'class': 'form-control'}),
+            'twitter': forms.URLInput(attrs={'class': 'form-control'}),
+            'linkedin': forms.URLInput(attrs={'class': 'form-control'}),
+            'bio': forms.Textarea(attrs={'class': 'form-control'}),
+        }
+
+    def clean_facebook(self):
+        facebook = self.cleaned_data.get('facebook')
+        if facebook:
+            validate = URLValidator()
+            try:
+                validate(facebook)
+            except ValidationError:
+                raise ValidationError("Invalid Facebook URL")
+        return facebook
+
+    def clean_twitter(self):
+        twitter = self.cleaned_data.get('twitter')
+        if twitter:
+            validate = URLValidator()
+            try:
+                validate(twitter)
+            except ValidationError:
+                raise ValidationError("Invalid Twitter URL")
+        return twitter
+
+    def clean_linkedin(self):
+        linkedin = self.cleaned_data.get('linkedin')
+        if linkedin:
+            validate = URLValidator()
+            try:
+                validate(linkedin)
+            except ValidationError:
+                raise ValidationError("Invalid LinkedIn URL")
+        return linkedin
+
+    

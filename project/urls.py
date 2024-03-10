@@ -26,7 +26,6 @@ from .settings import *
 
 
 urlpatterns = [
-    path('auth/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('projects/', include('fundprojects.urls')),

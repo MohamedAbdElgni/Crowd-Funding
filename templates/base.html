@@ -44,14 +44,21 @@
           <li class="nav-item">
             <a class="nav-link fw-bold text-black " href="{% url 'fundprojects:categories'%}">CATEGORIES</a>
           </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item d-flex nav-item d-flex align-items-center  px-2  ">
 
+            <img src="{{user.profile.profile_picture.url}}" class="rounded-circle" style="width: 30px; height: 30px;"
+              alt="">
+            <a class="nav-link fw-bold text-capitalize text-success" href="{% url 'profile' %}">{{user.username}}</a>
+          </li>
+          {% endif %}
         </ul>
       </div>
     <div class="collapse navbar-collapse " id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto me-4 ">
         <li class="nav-item">
-          <form class="d-flex ms-3">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <form class="d-flex ms-3" action="{% url 'search' %}" method="GET">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
         </li>

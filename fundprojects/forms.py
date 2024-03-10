@@ -7,7 +7,7 @@ class ProjectForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = ['title', 'details', 'category', 'total_target', 'start_time', 'end_time', 'status', 'tags']
+        fields = ['title', 'details', 'category', 'total_target', 'start_time', 'end_time', 'tags']
         widgets = {
             'start_time': forms.DateInput(attrs={"class": "form-control w-50 ",'type': 'date'}),
             'end_time': forms.DateInput(attrs={"class": "form-control w-50",'type': 'date'}),
@@ -15,7 +15,6 @@ class ProjectForm(forms.ModelForm):
             'details':forms.Textarea(attrs={"class": "form-control w-100  ","placeholder":"Enter title", "rows": "5"}),
             'category':forms.Select(attrs={"class": "form-control  w-50"}),
             'total_target':forms.TextInput(attrs={"class": "form-control w-50","placeholder":"ex.2000"}),
-            'status':forms.Select(attrs={"class": "form-control w-50"}),
             'tags':forms.TextInput(attrs={"class": "form-control w-50","placeholder":"ex.2000"}),
        
         }

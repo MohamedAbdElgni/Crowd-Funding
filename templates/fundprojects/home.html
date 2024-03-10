@@ -65,6 +65,7 @@
                                 style="background-color:#72B01D; border-radius:10px; text-decoration: none; color: #000; font-weight: 600;">View</a>
 
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -75,23 +76,51 @@
         <div class="row pt-3">
             <h3 class="text-center"> Our featured Project</h3>
             <hr>
-            {% for project in lts_projects %}
+            {% for project in feat %}
 
             <div class="col-md-4 ">
                 <div class="card mb-4 rounded-4 shadow">
                     <div class="card-body">
-                        {% if project.projectpicture_set.all %}
+                        
                         <img src="{{ project.projectpicture_set.first.image.url }}" class="img-fluid" alt="Cover Image"
                             style="height: 300px;">
-                        {% endif %}
-                        <h5 class="card-title">{{ project.title }}</h5>
-                        <p class="card-text">{{ project.details }}</p>
+                        
+                        <h5 class="card-title">{{ project }}</h5>
+                        <p class="card-text">{{ project }}</p>
 
                         <div class="text-center">
                             <a href="{% url 'fundprojects:project_details' project_id=project.id  %}"
                                 class="btn btn-outline-primary"
                                 style="background-color:#72B01D; border-radius:10px; text-decoration: none; color: #000; font-weight: 600;">View</a>
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="container">
+        <div class="row pt-3">
+            <h3 class="text-center"> Our Top Rated Project</h3>
+            <hr>
+            {% for project in top_rated %}
+    
+            <div class="col-md-4 ">
+                <div class="card mb-4 rounded-4 shadow">
+                    <div class="card-body">
+    
+                        <img src="{{ project.projectpicture_set.first.image.url }}" class="img-fluid" alt="Cover Image"
+                            style="height: 300px;">
+    
+                        <h5 class="card-title">{{ project }}</h5>
+                        <p class="card-text">{{ project }}</p>
+    
+                        <div class="text-center">
+                            <a href="{% url 'fundprojects:project_details' project_id=project.id  %}"
+                                class="btn btn-outline-primary"
+                                style="background-color:#72B01D; border-radius:10px; text-decoration: none; color: #000; font-weight: 600;">View</a>
+    
                         </div>
                     </div>
                 </div>

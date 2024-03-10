@@ -8,60 +8,31 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-users = [
-    {
-        "id": "1",
-        "first_name": "mohamed",
-        "fast_name": "ahmed",
-        "mail": "mohamed@gmail.com",
-        "password": "123465",
-        "mobile": "01098557840",
-        "profile_pic": "pic1.jpg",
-    },
-    {
-        "id": "2",
-        "first_name": "omer",
-        "fast_name": "ahmed",
-        "mail": "omer@gmail.com",
-        "password": "123465",
-        "mobile": "01198557840",
-        "profile_pic": "pic1.jpg",
-    },
-    {
-        "id": "3",
-        "first_name": "ali",
-        "fast_name": "ahmed",
-        "mail": "ali@gmail.com",
-        "password": "123465",
-        "mobile": "01298557840",
-        "profile_pic": "pic1.jpg",
-    },
-]
 
-current_user = users[0]
 
 # Create Project ----------------------------------------------->
-
+@login_required(login_url='login')
 def create_project(request):
     if request.method == 'POST':
-        form = ProjectForm(request.POST)
+        form = ProjectForm(data=request.POST)
         files = request.FILES.getlist("image")
         if form.is_valid():
-            f = form.save(commit=False)
-            f.save()
+            project = form.save(commit=False)
+            project.user = request.user
+            project.save()
             form.save_m2m()
             for i in files:
-                ProjectPicture.objects.create(project=f, image=i)
-            messages.success(request, "New Project Added",extra_tags='success')
+                ProjectPicture.objects.create(project=project, image=i)
+            messages.success(request, "New Project Added", extra_tags='success')
             return redirect('fundprojects:projects')
         else:
-            print(form.errors)
+            messages.error(request, "Error adding new project", extra_tags='danger')
+            return redirect('fundprojects:create_project')
     else:
         form = ProjectForm()
         imageform = ImageForm()
 
-    return render(request, 'fundprojects/create.html', {'form': form , 'imageform':imageform})
-    
+    return render(request, 'fundprojects/create.html', {'form': form, 'imageform': imageform})
 
 # List All Projects -------------------------------------------->
 
@@ -75,7 +46,6 @@ class ProjectListView(ListView):
 class ProjectUpdateView(UpdateView):
     model = Project
     form_class = ProjectForm
-    
     template_name = 'fundprojects/update.html'
     success_url = reverse_lazy('fundprojects:projects')
 
@@ -115,7 +85,7 @@ def project_details(request, project_id):
 def add_comment(request, project_id):
     if request.method == 'POST':
         comment = request.POST['comment']
-        Comments.objects.create(comment=comment, project_id=project_id, user_id=current_user['id'])
+        Comments.objects.create(user=request.user, project_id=project_id, comment=comment)
         messages.success(request, 'Thank you for your comment',extra_tags='success')
         return redirect('fundprojects:project_details', project_id=project_id)
     else:
@@ -131,7 +101,7 @@ def report_project(request, project_id):
     if request.method == 'POST':
         report = request.POST.get('report')
         if report:
-            ProjectsReports.objects.create(report=report, project_id=project_id, user_id=request.user.id)
+            ProjectsReports.objects.create(user=request.user, project_id=project_id, report=report)
             return redirect('fundprojects:project_details', project_id=project_id)
         else:
             return redirect('fundprojects:project_details', project_id=project_id)  
@@ -144,7 +114,7 @@ def report_comment(request, comment_id):
     if request.method == 'POST':
         report = request.POST.get('report')
         if report:
-            CommentsReports.objects.create(report=report, comment_id=comment_id, user_id=current_user['id'])
+            CommentsReports.objects.create(user=request.user, comment_id=comment_id, report=report)
             return redirect('fundprojects:project_details', project_id=comment.project.id)
         else:
             return redirect('fundprojects:project_details', project_id=comment.project.id)
@@ -161,7 +131,7 @@ def donate(request, project_id):
     if request.method == 'POST':
         amount = request.POST.get('amount')
         if amount:
-            Donations.objects.create(amount=float(amount), project_id=project_id, user_id=current_user['id'])
+            Donations.objects.create(user=request.user, project_id=project_id, amount=amount)
             messages.success(request, 'Thank you for your donation')
             return redirect('fundprojects:project_details', project_id=project_id)
         else:
@@ -174,11 +144,11 @@ def rate_project(request, project_id):
     if request.method == 'POST':
         rating = request.POST.get('rating')
         if int(rating)>=1 and int(rating)<=5:
-            if Rating.objects.filter(project_id=project_id, user_id=current_user['id']).exists():
-                Rating.objects.filter(project_id=project_id, user_id=current_user['id']).update(rating=rating)
+            if Rating.objects.filter(project_id = project_id, user  =request.user).exists():
+                Rating.objects.filter(project_id = project_id, user = request.user).update(rating=rating)
                 messages.success(request, 'Rating updated successfully')
             else:
-                Rating.objects.create(rating=rating, project_id=project_id, user_id=current_user['id'])
+                Rating.objects.create(rating=rating, project_id=project_id, user = request.user)
                 messages.success(request, 'Thank you for your rating')
             
             return redirect('fundprojects:project_details', project_id=project_id)
